@@ -12,6 +12,7 @@ let dog = new animal("dog",4,"bhow bhow");
 let cat = new animal("cat",4,"meow meow");
 cat.speaks();
 /********************************************************************/
+/Callback function/
 function square(a) {
     return a * a;
 }
