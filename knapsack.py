@@ -23,3 +23,4 @@ if __name__ == "__main__":
     arr = [Item(60, 10), Item(100, 20), Item(120, 30)]
     max_val = fractionalKnapsack(W, arr)
     print(max_val)
+    # print(f"{max_val:.1f}")
