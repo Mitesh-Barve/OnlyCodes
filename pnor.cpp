@@ -56,3 +56,36 @@ int main() {
     
     return 0;
 }
+
+
+//****************************BINARY TO DECIMAL***************************************//
+
+#include <iostream>
+using namespace std;
+
+int main() {
+    int num;
+    cout << "Enter the number: ";
+    cin >> num;
+
+    int rem, ans = 0, mul = 1;
+
+    while (num > 0) {
+        // Get remainder (bit)
+        rem = num % 2;
+
+        // Divide number by 2
+        num = num / 2;
+
+        // Add bit at correct decimal position
+        ans += rem * mul;
+
+        // Update multiplier (1, 10, 100, ...)
+        mul *= 10;
+    }
+
+    cout << "Binary equivalent (as number): " << ans << endl;
+    return 0;
+}
+
+
