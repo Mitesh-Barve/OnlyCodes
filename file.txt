@@ -1,0 +1,127 @@
+using DbFirstDemo.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+
+namespace DbFirstDemo.Controllers
+{
+    public class HomeController : Controller
+    {
+        private readonly ILogger<HomeController> _logger;
+        private readonly EmployeeContext context;
+
+        public HomeController(ILogger<HomeController> logger, EmployeeContext context)
+        {
+            _logger = logger;
+            this.context = context;
+        }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Employee emp)
+        {
+            if (ModelState.IsValid) { 
+                
+                context.Employees.Add(emp);
+                context.SaveChanges();
+                return RedirectToAction("List");    
+
+            }
+            return View(emp);
+        }
+        public IActionResult List()
+        {  
+            List <Employee> employees = context.Employees.ToList();
+            return View(employees);
+        }
+
+        public IActionResult Details(int? id)
+        {
+            if (id != null)
+            {     Employee emp = context.Employees.FirstOrDefault(item => item.Rollno == id);
+                if (emp!= null)
+                {
+                    return View(emp);
+                }
+                else
+                {
+                    return RedirectToAction("List");
+                }
+            }
+            return RedirectToAction("List");
+        }
+      public IActionResult Edit(int? id)
+        {
+            if (id != null)
+            {
+                Employee emp = context.Employees.FirstOrDefault(item => item.Rollno == id);
+                if (emp != null)
+                {
+                    return View(emp);
+                }
+                else
+                {
+                    return RedirectToAction("List");
+                }
+            }
+            return RedirectToAction("List");
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Employee emp)
+        {
+            if(ModelState.IsValid)
+            {
+                context.Employees.Update(emp);
+                context.SaveChanges();
+                return RedirectToAction("List");
+            }
+            return View(emp);
+        }
+
+        public IActionResult delete(int? id)
+        {
+            if (id != null)
+            {
+                Employee emp = context.Employees.FirstOrDefault(item => item.Rollno == id);
+                if (emp != null)
+                {
+                    return View(emp);
+                }
+                else
+                {
+                    return RedirectToAction("List");
+                }
+            }
+            return RedirectToAction("List");
+
+        }
+        [HttpPost]
+        public IActionResult delete(Employee emp)
+        {
+            context.Employees.Remove(emp);
+            context.SaveChanges();
+            return RedirectToAction("List");
+        }
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+    }
+}
