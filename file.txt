@@ -122,6 +122,15 @@ namespace DbFirstDemo.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-    }
-}
+        *************************************************************************
+Scaffold-DbContext "Host=localhost;Port=5432;Database=Employee;Username=postgres;Password=mitesh123;" Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir Models
+
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<EmployeeContext>(options =>
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("DefaultConnection")
+    ));
+
+var app = builder.Build();
+
