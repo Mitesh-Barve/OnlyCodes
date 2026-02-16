@@ -132,5 +132,8 @@ builder.Services.AddDbContext<EmployeeContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
-var app = builder.Build();
+var app = builder.Build();                                                                                                                                                                                                
+"ConnectionStrings": {
+  "DefaultConnection": "Host=localhost;Port=5432;Database=Employee;Username=postgres;Password=mitesh123;"
+},
 
