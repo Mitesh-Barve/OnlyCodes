@@ -27,18 +27,26 @@ namespace DbFirstDemo.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Create(Employee emp)
+      [HttpPost]
+public IActionResult Create(Employee emp)
+{
+    try
+    {
+        if (ModelState.IsValid)
         {
-            if (ModelState.IsValid) { 
-                
-                context.Employees.Add(emp);
-                context.SaveChanges();
-                return RedirectToAction("List");    
-
-            }
-            return View(emp);
+            context.Employees.Add(emp);
+            context.SaveChanges();
+            return RedirectToAction("List");
         }
+
+        return View(emp);
+    }
+    catch (Exception)
+    {
+        return View(emp);
+    }
+}
+
         public IActionResult List()
         {  
             List <Employee> employees = context.Employees.ToList();
