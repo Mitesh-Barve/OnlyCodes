@@ -137,3 +137,13 @@ int main() {
     return 0;
 }
     
+displayConfig.TotalOrder = 100;
+displayConfig.CartId = 1;
+displayConfig.ListReviewOrder = new List<MyCartModel>()
+{
+    new MyCartModel
+    {
+        ItemDescription = "Test Item",
+        ItemTotal = 100
+    }
+};
